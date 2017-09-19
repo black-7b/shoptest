@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+  <section id="header">
+    <div class="top container">
+      <h1><a href="/">Онлайн-Магазин</a></h1>
+    </div>
+    <div class="top-bl">
+      <div class="container">
+        <div class="cart">
+          {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+              Ваша корзина:
+              <a href="{% url "cart:CartDetail" %}">
+                {{ total_items }} тов. {{ cart.get_total_price }} руб.
+              </a>
+            {% else %}
+              Корзина пустая
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="content row" class="container">
+    {% block content %}{% endblock %}
+    {% block post %}{% endblock %}
+  </section>
+</body>
+</html>
